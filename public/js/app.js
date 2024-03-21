@@ -15,19 +15,26 @@ function App() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const isFormValid = validateForm(errors);
+        // deep copy of errors state
+        const updatedErrors = JSON.parse(JSON.stringify(errors));
 
-        if (!isFormValid) {
-            fetch;
-        } else {
-            post('http://localhost:3000/calculate', JSON.stringify(form)).then(
-                (data) => {
-                    console.log(data); // JSON data parsed by `data.json()` call
-                },
-            );
+        // considering if same form key does not exist in errors
+        // set it's value to true as error
+        for (const [key] of Object.entries(form)) {
+            if (updatedErrors[key] === undefined) {
+                updatedErrors[key] = true;
+            }
         }
 
-        //console.log(form);
+        const isFormValid = validateForm(updatedErrors);
+
+        if (isFormValid) {
+            post('http://localhost:3000/api/calculate', form).then((data) => {
+                console.log('json', data);
+            });
+        } else {
+            setErrors(updatedErrors);
+        }
     };
 
     const handleChange = (e) => {
@@ -54,10 +61,8 @@ function App() {
     };
 
     const validateForm = (errors) => {
-        return !Object.values(errors).reduce(
-            (acc, current) => acc && current,
-            [],
-        );
+        // check if all values are false
+        return Object.values(errors).some((value) => value === false);
     };
 
     const post = async (url = '', data = {}) => {

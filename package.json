@@ -1,0 +1,44 @@
+{
+  "name": "nodejs-subnet-calculator",
+  "version": "1.0.0",
+  "description": "Calculates the subnet IP range based on the user input.",
+  "main": "server.js",
+  "engines": {
+    "node": ">=19 <=20"
+  },
+  "scripts": {
+    "test": "jest",
+    "prettier": "prettier -l --write \"**/*.js\"",
+    "dev": "nodemon -L server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sab-khan/nodejs-subnet-calculator"
+  },
+  "keywords": [
+    "Subnet",
+    "IP Range",
+    "Calculator",
+    "Network",
+    "IPs"
+  ],
+  "author": "Abdul Saboor Khan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sab-khan/nodejs-subnet-calculator/issues"
+  },
+  "homepage": "https://github.com/sab-khan/nodejs-subnet-calculator#readme",
+  "prettier": {
+    "trailingComma": "all",
+    "tabWidth": 4,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "express": "^4.18.3",
+    "nodemon": "^3.1.0",
+    "prettier": "^3.2.5"
+  }
+}

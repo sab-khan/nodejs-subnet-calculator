@@ -1,6 +1,7 @@
 function App() {
     const { useState } = React;
-    const { Container, Row, Col, Form, InputGroup, Button } = ReactBootstrap;
+    const { Container, Row, Col, Form, InputGroup, Button, ListGroup } =
+        ReactBootstrap;
 
     const [form, setForm] = useState({
         octet1: '',
@@ -11,6 +12,7 @@ function App() {
     });
 
     const [errors, setErrors] = useState({});
+    const [result, setResult] = useState({});
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -29,8 +31,10 @@ function App() {
         const isFormValid = validateForm(updatedErrors);
 
         if (isFormValid) {
-            post('http://localhost:3000/api/calculate', form).then((data) => {
-                console.log('json', data);
+            post('http://localhost:3000/api/calculate', form).then((res) => {
+                if (res.errors.length === 0) {
+                    setResult(res.data);
+                }
             });
         } else {
             setErrors(updatedErrors);
@@ -53,7 +57,7 @@ function App() {
     };
 
     const validateField = (input) => {
-        const regex = /^[1-9]\d{0,2}$/;
+        const regex = /^(0|[1-9][0-9]{0,2})$/;
 
         // validate a numeric value for the octet.
         // should be 1 to 3 chraraters and value less or equal to 255
@@ -61,12 +65,12 @@ function App() {
     };
 
     const validateForm = (errors) => {
-        // check if all values are false
+        // check if all errors prop values are false
         return Object.values(errors).some((value) => value === false);
     };
 
     const post = async (url = '', data = {}) => {
-        const response = await fetch(url, {
+        const res = await fetch(url, {
             method: 'POST',
             cache: 'no-cache',
             credentials: 'same-origin',
@@ -76,7 +80,7 @@ function App() {
             referrerPolicy: 'no-referrer',
             body: JSON.stringify(data),
         });
-        return response.json();
+        return res.json();
     };
 
     return (
@@ -166,6 +170,38 @@ function App() {
                             <Button type="submit">Calculate</Button>
                         </InputGroup>
                     </Form>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <ListGroup className="mt-4 results">
+                        <ListGroup.Item>
+                            <strong>Network:</strong>{' '}
+                            {result.base !== undefined ? result.base : ''}
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <strong>First Usable Host:</strong>{' '}
+                            {result.first !== undefined ? result.first : ''}
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <strong>Last Usable Host:</strong>{' '}
+                            {result.last !== undefined ? result.last : ''}
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <strong>Broadcast IP:</strong>{' '}
+                            {result.broadcast !== undefined
+                                ? result.broadcast
+                                : ''}
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <strong>Subnet Mask:</strong>{' '}
+                            {result.mask !== undefined ? result.mask : ''}
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <strong>Total Network IPs:</strong>{' '}
+                            {result.size !== undefined ? result.size : ''}
+                        </ListGroup.Item>
+                    </ListGroup>
                 </Col>
             </Row>
         </Container>

@@ -14,3 +14,7 @@
 .form .input-group .seperator {
     font-size: 24px;
 }
+
+.results {
+  max-width: 500px;
+}

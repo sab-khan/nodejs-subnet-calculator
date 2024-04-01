@@ -209,7 +209,7 @@ function App() {
                         <Card.Body>
                             <p>
                                 <strong>Network:</strong>
-                                <span>
+                                <span className="ml-2">
                                     {typeof result.base !== undefined
                                         ? result.base
                                         : ''}
@@ -217,7 +217,7 @@ function App() {
                             </p>
                             <p>
                                 <strong>First Usable Host:</strong>
-                                <span>
+                                <span className="ml-2">
                                     {typeof result.first !== undefined
                                         ? result.first
                                         : ''}
@@ -225,7 +225,7 @@ function App() {
                             </p>
                             <p>
                                 <strong>Last Usable Host:</strong>
-                                <span>
+                                <span className="ml-2">
                                     {typeof result.last !== undefined
                                         ? result.last
                                         : ''}
@@ -233,7 +233,7 @@ function App() {
                             </p>
                             <p>
                                 <strong>Broadcast IP:</strong>
-                                <span>
+                                <span className="ml-2">
                                     {typeof result.broadcast !== undefined
                                         ? result.broadcast
                                         : ''}
@@ -241,7 +241,7 @@ function App() {
                             </p>
                             <p>
                                 <strong>Subnet Mask:</strong>
-                                <span>
+                                <span className="ml-2">
                                     {typeof result.mask !== undefined
                                         ? result.mask
                                         : ''}
@@ -249,7 +249,7 @@ function App() {
                             </p>
                             <p>
                                 <strong>Total Network IPs:</strong>
-                                <span>
+                                <span className="ml-2">
                                     {typeof result.size !== undefined
                                         ? result.size
                                         : ''}
@@ -282,7 +282,6 @@ function AlertDismissible({ index, variant, children, onHandleClose }) {
         >
             <div className="w-100 d-flex">
                 <p>{children}</p>
-                <span>X</span>
             </div>
         </Alert>
     );

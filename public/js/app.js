@@ -135,7 +135,7 @@ function App() {
                                 value={form.octet1}
                                 style={{
                                     borderColor:
-                                        errors.octet1 !== undefined &&
+                                        typeof errors.octet1 !== undefined &&
                                         errors.octet1
                                             ? 'red'
                                             : '',
@@ -149,7 +149,7 @@ function App() {
                                 value={form.octet2}
                                 style={{
                                     borderColor:
-                                        errors.octet2 !== undefined &&
+                                        typeof errors.octet2 !== undefined &&
                                         errors.octet2
                                             ? 'red'
                                             : '',
@@ -163,7 +163,7 @@ function App() {
                                 value={form.octet3}
                                 style={{
                                     borderColor:
-                                        errors.octet3 !== undefined &&
+                                        typeof errors.octet3 !== undefined &&
                                         errors.octet3
                                             ? 'red'
                                             : '',
@@ -177,7 +177,7 @@ function App() {
                                 value={form.octet4}
                                 style={{
                                     borderColor:
-                                        errors.octet4 !== undefined &&
+                                        typeof errors.octet4 !== undefined &&
                                         errors.octet4
                                             ? 'red'
                                             : '',
@@ -191,7 +191,8 @@ function App() {
                                 value={form.cidr}
                                 style={{
                                     borderColor:
-                                        errors.cidr !== undefined && errors.cidr
+                                        typeof errors.cidr !== undefined &&
+                                        errors.cidr
                                             ? 'red'
                                             : '',
                                 }}
@@ -207,30 +208,52 @@ function App() {
                     <Card className="results mt-4">
                         <Card.Body>
                             <p>
-                                <strong>Network:</strong>{' '}
-                                {result.base !== undefined ? result.base : ''}
+                                <strong>Network:</strong>
+                                <span>
+                                    {typeof result.base !== undefined
+                                        ? result.base
+                                        : ''}
+                                </span>
                             </p>
                             <p>
-                                <strong>First Usable Host:</strong>{' '}
-                                {result.first !== undefined ? result.first : ''}
+                                <strong>First Usable Host:</strong>
+                                <span>
+                                    {typeof result.first !== undefined
+                                        ? result.first
+                                        : ''}
+                                </span>
                             </p>
                             <p>
-                                <strong>Last Usable Host:</strong>{' '}
-                                {result.last !== undefined ? result.last : ''}
+                                <strong>Last Usable Host:</strong>
+                                <span>
+                                    {typeof result.last !== undefined
+                                        ? result.last
+                                        : ''}
+                                </span>
                             </p>
                             <p>
-                                <strong>Broadcast IP:</strong>{' '}
-                                {result.broadcast !== undefined
-                                    ? result.broadcast
-                                    : ''}
+                                <strong>Broadcast IP:</strong>
+                                <span>
+                                    {typeof result.broadcast !== undefined
+                                        ? result.broadcast
+                                        : ''}
+                                </span>
                             </p>
                             <p>
-                                <strong>Subnet Mask:</strong>{' '}
-                                {result.mask !== undefined ? result.mask : ''}
+                                <strong>Subnet Mask:</strong>
+                                <span>
+                                    {typeof result.mask !== undefined
+                                        ? result.mask
+                                        : ''}
+                                </span>
                             </p>
                             <p>
-                                <strong>Total Network IPs:</strong>{' '}
-                                {result.size !== undefined ? result.size : ''}
+                                <strong>Total Network IPs:</strong>
+                                <span>
+                                    {typeof result.size !== undefined
+                                        ? result.size
+                                        : ''}
+                                </span>
                             </p>
                         </Card.Body>
                     </Card>

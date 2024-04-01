@@ -1,6 +1,6 @@
 function App() {
     const { useState } = React;
-    const { Container, Row, Col, Form, InputGroup, Button, ListGroup } =
+    const { Container, Row, Col, Form, InputGroup, Button, Card } =
         ReactBootstrap;
 
     const [form, setForm] = useState({
@@ -204,34 +204,36 @@ function App() {
             </Row>
             <Row>
                 <Col>
-                    <ListGroup className="mt-4 results">
-                        <ListGroup.Item>
-                            <strong>Network:</strong>{' '}
-                            {result.base !== undefined ? result.base : ''}
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <strong>First Usable Host:</strong>{' '}
-                            {result.first !== undefined ? result.first : ''}
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <strong>Last Usable Host:</strong>{' '}
-                            {result.last !== undefined ? result.last : ''}
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <strong>Broadcast IP:</strong>{' '}
-                            {result.broadcast !== undefined
-                                ? result.broadcast
-                                : ''}
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <strong>Subnet Mask:</strong>{' '}
-                            {result.mask !== undefined ? result.mask : ''}
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <strong>Total Network IPs:</strong>{' '}
-                            {result.size !== undefined ? result.size : ''}
-                        </ListGroup.Item>
-                    </ListGroup>
+                    <Card className="results mt-4">
+                        <Card.Body>
+                            <p>
+                                <strong>Network:</strong>{' '}
+                                {result.base !== undefined ? result.base : ''}
+                            </p>
+                            <p>
+                                <strong>First Usable Host:</strong>{' '}
+                                {result.first !== undefined ? result.first : ''}
+                            </p>
+                            <p>
+                                <strong>Last Usable Host:</strong>{' '}
+                                {result.last !== undefined ? result.last : ''}
+                            </p>
+                            <p>
+                                <strong>Broadcast IP:</strong>{' '}
+                                {result.broadcast !== undefined
+                                    ? result.broadcast
+                                    : ''}
+                            </p>
+                            <p>
+                                <strong>Subnet Mask:</strong>{' '}
+                                {result.mask !== undefined ? result.mask : ''}
+                            </p>
+                            <p>
+                                <strong>Total Network IPs:</strong>{' '}
+                                {result.size !== undefined ? result.size : ''}
+                            </p>
+                        </Card.Body>
+                    </Card>
                 </Col>
             </Row>
         </Container>

@@ -12,6 +12,7 @@ function App() {
     });
 
     const [errors, setErrors] = useState({});
+    const [serverErrors, setServerErrors] = useState([]);
     const [result, setResult] = useState({});
 
     const handleSubmit = (e) => {
@@ -31,11 +32,17 @@ function App() {
         const isFormValid = validateForm(updatedErrors);
 
         if (isFormValid) {
-            post('http://localhost:3000/api/calculate', form).then((res) => {
-                if (res.errors.length === 0) {
-                    setResult(res.data);
-                }
-            });
+            post('http://localhost:3000/api/calculate', form)
+                .then((res) => {
+                    if (res.errors.length === 0) {
+                        setResult(res.data);
+                    } else {
+                        setServerErrors(res.errors);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         } else {
             setErrors(updatedErrors);
         }
@@ -56,6 +63,10 @@ function App() {
         });
     };
 
+    const handleCloseAlert = (index) => {
+        setServerErrors(serverErrors.filter((_, i) => i !== index));
+    };
+
     const validateField = (input) => {
         const regex = /^(0|[1-9][0-9]{0,2})$/;
 
@@ -67,6 +78,10 @@ function App() {
     const validateForm = (errors) => {
         // check if all errors prop values are false
         return Object.values(errors).some((value) => value === false);
+    };
+
+    const uniqueId = () => {
+        return Math.floor(Math.random() * 90000);
     };
 
     const post = async (url = '', data = {}) => {
@@ -85,6 +100,21 @@ function App() {
 
     return (
         <Container>
+            <Row className="mt-4">
+                <Col>
+                    {serverErrors.length > 0 &&
+                        serverErrors.map((serverError, index) => (
+                            <AlertDismissible
+                                key={uniqueId(index)}
+                                index={index}
+                                variant="danger"
+                                onHandleClose={handleCloseAlert}
+                            >
+                                {serverError}
+                            </AlertDismissible>
+                        ))}
+                </Col>
+            </Row>
             <Row className="mt-4">
                 <Col>
                     <p>
@@ -205,6 +235,31 @@ function App() {
                 </Col>
             </Row>
         </Container>
+    );
+}
+
+function AlertDismissible({ index, variant, children, onHandleClose }) {
+    const { useState } = React;
+    const { Alert } = ReactBootstrap;
+
+    const [show, setShow] = useState(true);
+
+    return (
+        <Alert
+            show={show}
+            variant={variant}
+            onClose={(e) => {
+                setShow(false);
+                onHandleClose(index);
+                return;
+            }}
+            dismissible
+        >
+            <div className="w-100 d-flex">
+                <p>{children}</p>
+                <span>X</span>
+            </div>
+        </Alert>
     );
 }
 
